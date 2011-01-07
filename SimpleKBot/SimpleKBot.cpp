@@ -19,14 +19,14 @@
 		printf("BuiltinDefaultCode Constructor Started\n");
 
 		// Create a robot using standard right/left robot drive on PWMS 1, 2, 3, and #4
-		m_leftJaguar1 = new CANJaguar(3, CANJaguar::kPercentVoltage);
+		m_leftJaguar1 = new CANJaguar(3, CANJaguar::kPercentVbus);
 		m_leftJaguar1->Set(0.0);
-		m_leftJaguar2 = new CANJaguar(2, CANJaguar::kPercentVoltage);
+		m_leftJaguar2 = new CANJaguar(2, CANJaguar::kPercentVbus);
 		m_leftJaguar2->Set(0.0);
 
-		m_rightJaguar1 = new CANJaguar(4, CANJaguar::kPercentVoltage);
+		m_rightJaguar1 = new CANJaguar(4, CANJaguar::kPercentVbus);
 		m_rightJaguar1->Set(0.0);
-		m_rightJaguar2 = new CANJaguar(5, CANJaguar::kPercentVoltage);
+		m_rightJaguar2 = new CANJaguar(5, CANJaguar::kPercentVbus);
 		m_rightJaguar2->Set(0.0);
 
 		m_robotDrive = new KBotDrive(m_leftJaguar1, m_leftJaguar2, m_rightJaguar1, m_rightJaguar2);
@@ -123,6 +123,7 @@
 		// Code to drive the robot
 		float xval=0, yval=0;
 		xval = m_rightStick->GetX();
+		// Square the xval for better steering control, but don't square yval
 		if (xval < 0)
 		{
 			xval *= -xval;	// preserve sign
